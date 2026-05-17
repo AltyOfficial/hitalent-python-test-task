@@ -11,7 +11,7 @@ class Department(UUIDMixin, CreatedAtMixin, UpdatedAtMixin):
 
     name = models.CharField(
         verbose_name="название",
-        max_length=64,
+        max_length=200,
     )
     parent = models.ForeignKey(
         'self',
@@ -63,11 +63,11 @@ class Employee(UUIDMixin, CreatedAtMixin, UpdatedAtMixin):
     )
     full_name = models.CharField(
         verbose_name="полное имя",
-        max_length=128,
+        max_length=200,
     )
     position = models.CharField(
         verbose_name="должность",
-        max_length=64,
+        max_length=200,
     )
     hired_at = models.DateField(
         verbose_name="дата найма",
