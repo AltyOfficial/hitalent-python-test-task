@@ -1,0 +1,54 @@
+[project]
+name = "hitalent-python-test-task"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Arthur Alty",email = "alty.official.prim@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django (>=6.0.5,<7.0.0)",
+    "djangorestframework (>=3.17.1,<4.0.0)",
+    "psycopg[binary] (>=3.3.4,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.15.13"
+pre-commit = "^4.6.0"
+django-debug-toolbar = "^6.3.0"
+drf-spectacular = "^0.29.0"
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+exclude = [
+    ".git",
+    ".ruff_cache",
+    ".venv",
+    "venv",
+    "env",
+    "migrations",
+    "*/migrations/*",
+    "docker",
+    "static",
+    "media",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # bugbear
+    "UP",   # pyupgrade
+    "RUF",  # ruff specific
+    "DJ",   # django specific
+]
+ignore = ["DJ001"]
