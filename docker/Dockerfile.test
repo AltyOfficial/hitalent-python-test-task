@@ -1,0 +1,33 @@
+FROM python:3.13-slim AS base
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    DJANGO_SETTINGS_MODULE=server.settings
+
+WORKDIR /app
+
+# Системные зависимости
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - \
+    && ln -s /root/.local/bin/poetry /usr/local/bin/poetry
+
+# Копируем зависимости
+COPY pyproject.toml poetry.lock* ./
+
+# Устанавливаем ВСЕ зависимости (main + dev + test)
+RUN poetry config virtualenvs.create false \
+    && poetry install --with dev,test --no-root
+
+# Копируем код
+COPY . .
+
+EXPOSE 8000
+
+# Команда по умолчанию для тестов
+CMD ["poetry", "run", "pytest", "-v", "--tb=short"]
