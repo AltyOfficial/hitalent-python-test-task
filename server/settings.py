@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'rest_framework',
     'rest_framework_simplejwt',
+    # local
+    'server.apps.departments.apps.DepartmentsConfig',
 ]
 
 MIDDLEWARE = [
